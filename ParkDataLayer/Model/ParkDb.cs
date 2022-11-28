@@ -10,7 +10,7 @@ namespace ParkDataLayer.DbModel {
 			
 		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[MaxLength(20)]
 		public string? Id { get; set; } = null;
 

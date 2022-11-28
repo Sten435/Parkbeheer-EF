@@ -24,7 +24,7 @@ namespace ParkDataLayer.Context {
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
 			//optionsBuilder.UseSqlServer(_connectionString);
-			optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=ParkingBeheer;Integrated Security=True;TrustServerCertificate=True");
+			optionsBuilder.UseSqlServer(@"Data Source=.\SQLEXPRESS;Initial Catalog=ParkBeheer;Integrated Security=True;TrustServerCertificate=True");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {

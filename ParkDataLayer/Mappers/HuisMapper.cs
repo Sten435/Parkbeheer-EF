@@ -9,8 +9,10 @@ using System.Linq;
 
 namespace ParkDataLayer.DbModel {
 	public static class HuisMapper {
-		public static HuisDb MapToHuisDb(Huis huis) {
-			return new HuisDb(huis.Id, huis.Straat, huis.Nr, huis.Actief, ParkMapper.MapToParkDb(huis.Park));
+		public static HuisDb MapToHuisDb(Huis huis, DatabaseContext ctx) {
+			ParkDb park = ctx.Parken.Find(huis.Park.Id);
+			park ??= ParkMapper.MapToParkDb(huis.Park);
+			return new HuisDb(huis.Id, huis.Straat, huis.Nr, huis.Actief, park);
 		}
 
 		public static Huis MapToHuis(HuisDb huisDb) {

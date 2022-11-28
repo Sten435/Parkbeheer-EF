@@ -18,7 +18,7 @@ namespace ParkDataLayer.DbModel {
 			parkDb.Id = park.Id;
 			parkDb.Naam = park.Naam;
 			parkDb.Locatie = park.Locatie;
-			parkDb.Huizen = park.Huizen().Select(huis => HuisMapper.MapToHuisDb(huis)).ToList();
+			parkDb.Huizen = park.Huizen().Select(huis => HuisMapper.MapToHuisDb(huis,DatabaseContext.Instance)).ToList();
 
 			return parkDb;
 		}

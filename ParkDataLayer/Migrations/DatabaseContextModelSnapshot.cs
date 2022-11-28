@@ -24,11 +24,11 @@ namespace ParkDataLayer.Migrations
 
             modelBuilder.Entity("ParkDataLayer.DbModel.HuisDb", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Actief")
                         .HasColumnType("bit");
@@ -113,6 +113,7 @@ namespace ParkDataLayer.Migrations
             modelBuilder.Entity("ParkDataLayer.DbModel.ParkDb", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 

@@ -12,8 +12,8 @@ using ParkDataLayer.Context;
 namespace ParkDataLayer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221127200759_intial")]
-    partial class intial
+    [Migration("20221128092955_fsdgd")]
+    partial class fsdgd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace ParkDataLayer.Migrations
 
             modelBuilder.Entity("ParkDataLayer.DbModel.HuisDb", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Actief")
                         .HasColumnType("bit");
@@ -116,6 +116,7 @@ namespace ParkDataLayer.Migrations
             modelBuilder.Entity("ParkDataLayer.DbModel.ParkDb", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 

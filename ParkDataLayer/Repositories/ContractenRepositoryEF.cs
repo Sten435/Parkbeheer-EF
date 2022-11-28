@@ -58,7 +58,7 @@ namespace ParkDataLayer.Repositories
         {
 			HuurContractDb huurContractModel = _database.HuurContracten.Find(contract.Id);
 			huurContractModel.Huurder = HuurderMapper.MapToHuurderDb(contract.Huurder);
-			huurContractModel.Huis = HuisMapper.MapToHuisDb(contract.Huis);
+			//huurContractModel.Huis = HuisMapper.MapToHuisDb(contract.Huis);
 			huurContractModel.Aantaldagen = contract.Huurperiode.Aantaldagen;
 			huurContractModel.StartDatum = contract.Huurperiode.StartDatum;
 			huurContractModel.EindDatum = contract.Huurperiode.EindDatum;

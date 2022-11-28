@@ -30,7 +30,7 @@ namespace ParkDataLayer.Repositories {
 		}
 
 		public void UpdateHuis(Huis huis) {
-			HuisDb huisModel = HuisMapper.MapToHuisDb(GeefHuis(huis.Id));
+			HuisDb huisModel = HuisMapper.MapToHuisDb(GeefHuis(huis.Id), _database);
 			huisModel.Straat = huis.Straat;
 			huisModel.Actief = huis.Actief;
 			huisModel.Nr = huis.Nr;
@@ -48,7 +48,7 @@ namespace ParkDataLayer.Repositories {
 		}
 
 		public Huis VoegHuisToe(Huis h) {
-			HuisDb huisModel = HuisMapper.MapToHuisDb(h);
+			HuisDb huisModel = HuisMapper.MapToHuisDb(h, _database);
 			_database.Huizen.Add(huisModel);
 			SaveAndClear();
 			return HuisMapper.MapToHuis(huisModel);

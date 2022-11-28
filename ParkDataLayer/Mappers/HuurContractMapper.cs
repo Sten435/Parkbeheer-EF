@@ -9,7 +9,7 @@ namespace ParkDataLayer.DbModel {
 			HuurContractDb huurContractDb = new();
 			huurContractDb.Id = contract.Id;
 			huurContractDb.Huurder = HuurderMapper.MapToHuurderDb(contract.Huurder);
-			huurContractDb.Huis = HuisMapper.MapToHuisDb(contract.Huis);
+			huurContractDb.Huis = HuisMapper.MapToHuisDb(contract.Huis,Context.DatabaseContext.Instance);
 			huurContractDb.StartDatum = contract.Huurperiode.StartDatum;
 			huurContractDb.EindDatum = contract.Huurperiode.EindDatum;
 			huurContractDb.Aantaldagen = contract.Huurperiode.Aantaldagen;
