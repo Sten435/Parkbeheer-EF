@@ -48,5 +48,9 @@ namespace ParkBusinessLayer.Model
         {
             return HashCode.Combine(Huurperiode, Huurder, Huis);
         }
+
+		public override string ToString() {
+			return $"{Huurperiode.StartDatum} - {Huurperiode.EindDatum} - {Huurder.Naam} - Huis: ({Huis.Id})";
+		}
 	}
 }

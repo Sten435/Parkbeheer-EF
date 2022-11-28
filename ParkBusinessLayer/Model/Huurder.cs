@@ -1,4 +1,5 @@
 ﻿using ParkBusinessLayer.Exceptions;
+using System;
 using System.Collections.Generic;
 
 namespace ParkBusinessLayer.Model
@@ -35,5 +36,15 @@ namespace ParkBusinessLayer.Model
             if (contactgegevens == null) throw new ParkException("Huurder zetcontactgegevens");
             Contactgegevens = contactgegevens;
         }
-    }
+
+		public override bool Equals(object obj) {
+			return obj is Huurder huurder &&
+				   Naam == huurder.Naam &&
+				   EqualityComparer<ContactGegevens>.Default.Equals(Contactgegevens, huurder.Contactgegevens);
+		}
+
+		public override int GetHashCode() {
+			return HashCode.Combine(Naam, Contactgegevens);
+		}
+	}
 }

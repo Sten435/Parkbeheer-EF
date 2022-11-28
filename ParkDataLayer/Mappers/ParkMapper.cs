@@ -9,8 +9,8 @@ using System.Linq;
 
 namespace ParkDataLayer.DbModel {
 	public static class ParkMapper {
-		public static ParkDb MapToParkDb(Park park) {
-			ParkDb paDb = DatabaseContext.Instance.Parken.Include(park => park.Huizen).AsNoTracking().FirstOrDefault(p => p.Id == park.Id);
+		public static ParkDb MapToParkDb(Park park, DatabaseContext ctx) {
+			ParkDb paDb = ctx.Parken.Include(park => park.Huizen).AsNoTracking().FirstOrDefault(p => p.Id == park.Id);
 
 			if (paDb is not null) return paDb;
 
@@ -18,7 +18,7 @@ namespace ParkDataLayer.DbModel {
 			parkDb.Id = park.Id;
 			parkDb.Naam = park.Naam;
 			parkDb.Locatie = park.Locatie;
-			parkDb.Huizen = park.Huizen().Select(huis => HuisMapper.MapToHuisDb(huis,DatabaseContext.Instance)).ToList();
+			parkDb.Huizen = park.Huizen().Select(huis => HuisMapper.MapToHuisDb(huis, ctx)).ToList();
 
 			return parkDb;
 		}

@@ -18,30 +18,30 @@ namespace ParkBusinessLayer.Beheerders
             this.repo = repo;
         }
 
-        public void VoegNieuweHuurderToe(string Naam,ContactGegevens contact)
+        public Huurder VoegNieuweHuurderToe(string naam, ContactGegevens contact)
         {
             try
             {
-                if (repo.HeeftHuurder(Naam, contact)) throw new BeheerderException("huurder bestaat al");
-                Huurder h = new Huurder(Naam, contact);
-                repo.VoegHuurderToe(h);
+                if (repo.HeeftHuurder(naam, contact)) throw new BeheerderException("Huurder bestaat al");
+                Huurder h = new Huurder(naam, contact);
+                return repo.VoegHuurderToe(h);
             }
             catch(Exception ex)
             {
-                throw new BeheerderException("nieuwe huurder", ex);
+                throw new BeheerderException(ex.Message);
             }
         }
         public void UpdateHuurder(Huurder huurder)
         {
             try
             {
-                if (!repo.HeeftHuurder(huurder.Id)) throw new BeheerderException("huurder bestaat niet");
+                if (!repo.HeeftHuurder(huurder.Id)) throw new BeheerderException("Huurder bestaat niet");
                 repo.UpdateHuurder(huurder);
             }
             catch (Exception ex)
             {
-                throw new BeheerderException("updatehuurder", ex);
-            }
+				throw new BeheerderException(ex.Message);
+			}
         }
         public Huurder GeefHuurder(int id)
         {
@@ -51,7 +51,7 @@ namespace ParkBusinessLayer.Beheerders
             }
             catch (Exception ex)
             {
-                throw new BeheerderException("geefhuurder", ex);
+                throw new BeheerderException(ex.Message);
             }
         }
         public List<Huurder> GeefHuurders(string naam)
@@ -62,7 +62,7 @@ namespace ParkBusinessLayer.Beheerders
             }
             catch (Exception ex)
             {
-                throw new BeheerderException("geefhuurders", ex);
+                throw new BeheerderException(ex.Message);
             }
         }
     }

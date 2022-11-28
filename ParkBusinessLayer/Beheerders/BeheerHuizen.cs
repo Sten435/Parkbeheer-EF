@@ -16,19 +16,13 @@ namespace ParkBusinessLayer.Beheerders {
 		}
 
 		public Huis VoegNieuwHuisToe(string straat, int nummer, Park park) {
-			//try
-			//{
-			if (repo.HeeftHuis(straat, nummer, park)) throw new BeheerderException("Huis bestaat al");
-			Huis h = new Huis(straat, nummer, park);
-			return repo.VoegHuisToe(h);
-
-			//}
-			//catch (Exception ex)
-			//{
-			//    if (ex.InnerException is null)
-			//        throw new BeheerderException(ex.Message);
-			//    throw new BeheerderException(ex.InnerException.Message);
-			//}
+			try {
+				if (repo.HeeftHuis(straat, nummer, park)) throw new BeheerderException("Huis bestaat al");
+				Huis h = new Huis(straat, nummer, park);
+				return repo.VoegHuisToe(h);
+			} catch (Exception ex) {
+				throw new BeheerderException(ex.Message);
+			}
 		}
 		public void UpdateHuis(Huis huis) {
 			try {

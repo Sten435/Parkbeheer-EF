@@ -19,14 +19,17 @@ namespace ParkDataLayer.Repositories
 		
         public void AnnuleerContract(HuurContract contract)
         {
-			HuurContractDb huurContractModel = HuurContractMapper.MapToHuurContractDb(contract);
+			HuurContractDb huurContractModel = HuurContractMapper.MapToHuurContractDb(contract, _database);
 			_database.HuurContracten.Remove(huurContractModel);
 			SaveAndClear();
 		}
 
         public HuurContract GeefContract(string id)
         {
-			return HuurContractMapper.MapToHuurContract(_database.HuurContracten.Include(huurContracten => huurContracten.Huurder).Include(huurContracten => huurContracten.Huis).AsNoTracking().FirstOrDefault(huurContract => huurContract.Id == id));
+			return HuurContractMapper.MapToHuurContract(_database.HuurContracten
+				.Include(huurContracten => huurContracten.Huis.Park)
+				.Include(huurContracten => huurContracten.Huurder)
+				.AsNoTracking().FirstOrDefault(huurContract => huurContract.Id == id), _database);
 		}
 
 		public List<HuurContract> GeefContracten(DateTime dtBegin, DateTime? dtEinde)
@@ -39,7 +42,7 @@ namespace ParkDataLayer.Repositories
 			}
 			List<HuurContract> contracten = new();
 			foreach (HuurContractDb huurContractModel in huurContractModels) {
-				contracten.Add(HuurContractMapper.MapToHuurContract(huurContractModel));
+				contracten.Add(HuurContractMapper.MapToHuurContract(huurContractModel, _database));
 			}
 			return contracten;
 		}
@@ -58,16 +61,17 @@ namespace ParkDataLayer.Repositories
         {
 			HuurContractDb huurContractModel = _database.HuurContracten.Find(contract.Id);
 			huurContractModel.Huurder = HuurderMapper.MapToHuurderDb(contract.Huurder);
-			//huurContractModel.Huis = HuisMapper.MapToHuisDb(contract.Huis);
+			huurContractModel.Huis = HuisMapper.MapToHuisDb(contract.Huis, _database);
 			huurContractModel.Aantaldagen = contract.Huurperiode.Aantaldagen;
 			huurContractModel.StartDatum = contract.Huurperiode.StartDatum;
 			huurContractModel.EindDatum = contract.Huurperiode.EindDatum;
+			_database.HuurContracten.Update(huurContractModel);
 			SaveAndClear();
 		}
 
         public void VoegContractToe(HuurContract contract)
         {
-			HuurContractDb huurContractModel = HuurContractMapper.MapToHuurContractDb(contract);
+			HuurContractDb huurContractModel = HuurContractMapper.MapToHuurContractDb(contract, _database);
 			_database.Add(huurContractModel);
 			SaveAndClear();
 		}

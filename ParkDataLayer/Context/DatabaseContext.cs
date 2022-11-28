@@ -35,20 +35,6 @@ namespace ParkDataLayer.Context {
 				relationship.DeleteBehavior = DeleteBehavior.Restrict;
 			}
 		}
-
-		private static DatabaseContext instance = null;
-		private static readonly object padlock = new object();
-
-		public static DatabaseContext Instance {
-			get {
-				lock (padlock) {
-					if (instance == null) {
-						instance = new DatabaseContext();
-					}
-					return instance;
-				}
-			}
-		}
 	}
 
 }

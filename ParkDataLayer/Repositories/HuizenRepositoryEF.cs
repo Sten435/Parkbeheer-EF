@@ -15,9 +15,12 @@ namespace ParkDataLayer.Repositories {
 		}
 
 		public Huis? GeefHuis(int id) {
-			HuisDb? huis = _database.Huizen.Include(huis => huis.Park).Include(huis => huis.HuurContracten).AsNoTracking().FirstOrDefault(huis => huis.Id == id);
+			HuisDb? huis = _database.Huizen.Include(huis => huis.Park)
+				.Include(huis => huis.HuurContracten)
+				.ThenInclude(huurContract => huurContract.Huurder)
+				.AsNoTracking().FirstOrDefault(huis => huis.Id == id);
 			if (huis is not null)
-				return HuisMapper.MapToHuis(huis);
+				return HuisMapper.MapToHuis(huis, _database);
 			throw new Exception($"Huis met id: {id} bestaat niet");
 		}
 
@@ -34,7 +37,7 @@ namespace ParkDataLayer.Repositories {
 			huisModel.Straat = huis.Straat;
 			huisModel.Actief = huis.Actief;
 			huisModel.Nr = huis.Nr;
-			huisModel.Park = ParkMapper.MapToParkDb(huis.Park);
+			huisModel.Park = ParkMapper.MapToParkDb(huis.Park, _database);
 
 			_database.Entry(huisModel).State = EntityState.Modified;
 
@@ -51,7 +54,7 @@ namespace ParkDataLayer.Repositories {
 			HuisDb huisModel = HuisMapper.MapToHuisDb(h, _database);
 			_database.Huizen.Add(huisModel);
 			SaveAndClear();
-			return HuisMapper.MapToHuis(huisModel);
+			return HuisMapper.MapToHuis(huisModel, _database);
 		}
 	}
 }

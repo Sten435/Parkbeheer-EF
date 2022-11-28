@@ -24,10 +24,10 @@ namespace ParkDataLayer.Repositories {
 		}
 
 		public bool HeeftHuurder(string naam, ContactGegevens contact) {
-			return _database.Huurders.Any(huurder => huurder.Naam.ToLower() == naam.ToLower() &&
+			return _database.Huurders.Where(huurder => huurder.Naam.ToLower() == naam.ToLower() &&
 			huurder.Adres == contact.Adres &&
 			huurder.Email == contact.Email &&
-			huurder.Tel == contact.Tel);
+			huurder.Tel == contact.Tel).Any();
 		}
 
 		public bool HeeftHuurder(int id) {
@@ -47,7 +47,7 @@ namespace ParkDataLayer.Repositories {
 			HuurderDb huurderModel = HuurderMapper.MapToHuurderDb(h);
 			_database.Huurders.Add(huurderModel);
 			SaveAndClear();
-			return h;
+			return HuurderMapper.MapToHuurder(huurderModel);
 		}
 
 		private void SaveAndClear() {
