@@ -20,9 +20,9 @@ namespace CUI {
 			//DatabaseContext.Instance.Database.EnsureDeleted();
 			//DatabaseContext.Instance.Database.EnsureCreated();
 
-			Park park = new Park("Park1", "1", "1");
-			Park park2 = new Park("Park2", "2", "2");
-			Huis huis = new Huis("hghjn", 2, park);
+			Park park = new Park("qsdfdsffsd", "1", "1");
+			Park park2 = new Park("sfsdffdsfsfsdffsd", "2", "2");
+			Huis huis = new Huis("fdqsfsfsdfd", 2, park2);
 
 			#region Voeg Nieuw Huis Toe
 			huis = _huizenManager.VoegNieuwHuisToe(huis.Straat, huis.Nr, huis.Park);
@@ -39,12 +39,13 @@ namespace CUI {
 			#endregion
 
 			#region Archiveer Huis Error
-			huis = new Huis("frfefrf", 4, park);
+			huis = new Huis("sffsdff", 4, park);
 
 			var insertedHuis = _huizenManager.VoegNieuwHuisToe(huis.Straat, huis.Nr, huis.Park);
 			Console.WriteLine($"Actief: {insertedHuis.Straat} ({insertedHuis.Id}) -> {_huizenManager.GeefHuis(insertedHuis.Id).Actief}");
 			Console.WriteLine($"Achiveer huis: {insertedHuis.Straat} ({insertedHuis.Id})");
 			_huizenManager.ArchiveerHuis(insertedHuis);
+			Console.WriteLine($"Actief: {insertedHuis.Straat} ({insertedHuis.Id}) -> {_huizenManager.GeefHuis(insertedHuis.Id).Actief}");
 			#endregion
 		}
 	}
